@@ -1,9 +1,7 @@
 const webpack = require('webpack');
-// const config = require('../webpack.server.config.js');
 const config = require('../webpack.server.config');
 const constantCode = require('./constant');
 
-console.log(config)
 const compiler = webpack(config);
 
 compiler.watch({

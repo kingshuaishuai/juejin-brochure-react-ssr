@@ -3,8 +3,8 @@ const path = require('path');
 const constantCode = require('./constant');
 
 const nodeServerPath = path.resolve(__dirname, './server-dev-run.js');
-const feCodeWatchProcess = spawn('yarn', ['fe:watch'], {stdio: 'inherit'});
-const serverCodeWatchProcess = spawn('yarn', ['server:watch']);
+const feCodeWatchProcess = spawn('npm', ['run', 'fe:watch'], {stdio: 'inherit'});
+const serverCodeWatchProcess = spawn('npm', ['run', 'server:watch']);
 
 let nodeServerProcess = null;
 
@@ -19,7 +19,7 @@ const onServerData = data => {
 
 function nodeServerStart() {
   nodeServerProcess && nodeServerProcess.kill();
-  nodeServerProcess = spawn('node', ['./webpack/scripts/server-dev-run.js']);
+  nodeServerProcess = spawn('node', [nodeServerPath]);
   nodeServerProcess.stdout.on('data', onServerData)
 }
 

@@ -11,6 +11,5 @@ app.use(koaStatic('./dist/static'))
 app.use(reactSsr);
 
 app.listen(port, () => {
-  console.log(process.argv)
   console.log(`http://localhost:${port}`)
 })
