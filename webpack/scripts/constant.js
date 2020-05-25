@@ -1,0 +1,3 @@
+module.exports = {
+  SERVER_CODE_COMPLETED: 'SERVER_CODE_COMPLETED'
+}
