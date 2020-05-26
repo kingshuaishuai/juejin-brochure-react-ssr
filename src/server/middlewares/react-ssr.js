@@ -8,7 +8,9 @@ import matchRoute from '../../share/match-route';
 export default async (ctx, next) => {
   const path = ctx.request.path;
   const { targetRoute } = matchRoute(path, routeList);
-  const fetchDataFn = targetRoute.component.getInitialProps();
+  
+  const getInitialProps = targetRoute.component.getInitialProps;
+  const fetchDataFn = getInitialProps && getInitialProps();
   let fetchResult = {};
   if (fetchDataFn) {
     fetchResult = await fetchDataFn();
