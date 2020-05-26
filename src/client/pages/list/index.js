@@ -13,6 +13,17 @@ export default class Index extends React.Component {
     this.state = initialData;
   }
 
+  componentDidMount() {
+    if (!this.state.data) {
+      const fetchDataFn = Index.getInitialProps();
+      fetchDataFn().then(res => {
+        this.setState({
+          data: res.data || []
+        })
+      })
+    }
+  }
+
   static getInitialProps() {
     const fetchData = () => {
       return new Promise(resolve => {
