@@ -4,8 +4,10 @@ import { StaticRouter } from 'react-router'
 import App from '../../client/router/index';
 import routeList from '../../client/router/route-config';
 import matchRoute from '../../share/match-route';
+import {Helmet} from 'react-helmet'
 
 export default async (ctx, next) => {
+  const helmet = Helmet.renderStatic();
   const path = ctx.request.path;
   const { targetRoute } = matchRoute(path, routeList);
   
@@ -28,7 +30,8 @@ export default async (ctx, next) => {
     <html lang="en">
     <head>
       <meta charset="UTF-8">
-      <title>my react ssr</title>
+      ${helmet.title.toString()}
+      ${helmet.meta.toString()}
     </head>
     <body>
       <div id="root">${html}</div>

@@ -1,5 +1,14 @@
 import React from 'react';
 import mockData from './data';
+import { Helmet } from 'react-helmet';
+
+const pageInfo = {
+  tdk: {
+    title:'首页',
+    keywords:'前端技术江湖 列表页',
+    description:'前端技术江湖 列表页'
+  }
+}
 
 export default class Index extends React.Component {
   constructor(props) {
@@ -10,6 +19,7 @@ export default class Index extends React.Component {
     } else {
       initialData = props.initialData || {};
     }
+    initialData.page = pageInfo;
     this.state = initialData;
   }
 
@@ -41,8 +51,14 @@ export default class Index extends React.Component {
 
   render() {
     const {data} = this.state;
+    const {tdk} = this.state.page;
     return (
       <div>
+        <Helmet>
+          <title>{tdk.title}</title>
+          <meta name="description" content={tdk.description}/>
+          <meta name="keywords" content={tdk.keywords}/>
+        </Helmet>
         {
           data && data.map(item => {
             return (
