@@ -1,10 +1,17 @@
 import React from 'react';
 import Index from '../../client/pages/index';
 import { renderToString } from 'react-dom/server';
-
+import { StaticRouter, Route } from 'react-router'
+import App from '../../client/router/index';
+import routeList from '../../client/router/route-config';
 
 export default (ctx, next) => {
-  const html = renderToString(<Index />);
+  const path = ctx.request.path;
+  const html = renderToString(
+    <StaticRouter location={path}>
+      <App routeList={routeList}></App>
+    </StaticRouter>
+  );
   ctx.body = `<!DOCTYPE html>
     <html lang="en">
     <head>

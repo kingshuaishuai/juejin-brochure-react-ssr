@@ -1,5 +1,12 @@
 import React from 'react';
 import ReactDom from 'react-dom';
-import Index from '../pages/index';
+import { BrowserRouter } from 'react-router-dom';
+import App from '../router/index';
+import routeList from '../router/route-config';
 
-ReactDom.hydrate(<Index />, document.getElementById('root'));
+ReactDom.hydrate(
+  <BrowserRouter>
+    <App routeList={routeList} />
+  </BrowserRouter>,
+  document.getElementById('root')
+);

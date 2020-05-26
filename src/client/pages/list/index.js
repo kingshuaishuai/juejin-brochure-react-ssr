@@ -5,11 +5,7 @@ export default class Index extends React.Component {
     super(props)
   }
 
-  handleClick() {
-    alert('学习ssr嘛');
-  }
-
   render() {
-    return <div onClick={this.handleClick}>首页 Click here!</div>
+    return <div>列表页</div>
   }
 }
