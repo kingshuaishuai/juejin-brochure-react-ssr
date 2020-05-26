@@ -1,14 +1,24 @@
 import React from 'react';
-import Index from '../../client/pages/index';
 import { renderToString } from 'react-dom/server';
-import { StaticRouter, Route } from 'react-router'
+import { StaticRouter } from 'react-router'
 import App from '../../client/router/index';
 import routeList from '../../client/router/route-config';
+import matchRoute from '../../share/match-route';
 
-export default (ctx, next) => {
+export default async (ctx, next) => {
   const path = ctx.request.path;
+  const { targetRoute } = matchRoute(path, routeList);
+  const fetchDataFn = targetRoute.component.getInitialProps();
+  let fetchResult = {};
+  if (fetchDataFn) {
+    fetchResult = await fetchDataFn();
+  }
+  const context = {
+    initialData: fetchResult
+  }
+
   const html = renderToString(
-    <StaticRouter location={path}>
+    <StaticRouter location={path} context={context}>
       <App routeList={routeList}></App>
     </StaticRouter>
   );
@@ -20,6 +30,9 @@ export default (ctx, next) => {
     </head>
     <body>
       <div id="root">${html}</div>
+      <textarea id="ssrTextInitData" style="display: none">
+        ${JSON.stringify(fetchResult)}
+      </textarea>
     </body>
     </html>
     <script type="text/javascript"  src="index.js"></script>`

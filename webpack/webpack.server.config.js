@@ -1,6 +1,7 @@
 const path = require('path');
 const nodeExternals = require('webpack-node-externals');
 const resolvePath = pathStr => path.resolve(__dirname, pathStr);
+const webpack = require('webpack');
 
 process.env.BABEL_ENV = 'node';
 
@@ -19,5 +20,10 @@ module.exports = {
       loader: 'babel-loader',
       exclude: /node_modules/
     }]
-  }
+  },
+  plugins: [
+    new webpack.DefinePlugin({
+      '__SERVER__': true
+    })
+  ]
 }
